@@ -1,11 +1,9 @@
-#include <iostream>
+#include <string>
 #include <cstring>
 #include <cctype>
 #include "util.h"
 
 using std::string;
-using std::cout;
-using std::endl;
 
 void Util::split(string &str,		    /*IN*/
 		 const string &delimiter,   /*IN*/

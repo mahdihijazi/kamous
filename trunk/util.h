@@ -1,17 +1,15 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <iostream>
-
-using std::string;
+#include <string>
 
 class Util
 {
 public:
-    static void trim(string&);
-    static void split(string&, const string&, string[], int, int&);
-    static string getExceptionMessage(int etype);
-    static void lower(string&);
+    static void trim(std::string&);
+    static void split(std::string&, const std::string&, std::string[], int, int&);
+    static std::string getExceptionMessage(int etype);
+    static void lower(std::string&);
 };
 
 #endif // UTIL_H
