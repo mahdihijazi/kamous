@@ -1,3 +1,11 @@
+/**
+* Kamous, English->arabic dictionary.
+* licensed under "waqf General Public license"
+* http://www.ojuba.org/wiki/waqf/license
+* 
+* @auther mhewedy
+* @email mohammed_a_hewedy@gmail.com
+*/
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
