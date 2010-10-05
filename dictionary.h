@@ -5,22 +5,20 @@
 #include <string>
 #include <entry.h>
 
-using namespace std;
-
 class Dictionary
 {
 public:
     Dictionary();
-    Entry search(string&);
+    Entry search(std::string&);
     void print(const char);
     
 private://function
     char* getFileName(const char);
-    int binarySearch(Entry *const, int, int, const string&);
+    int binarySearch(Entry *const, int, int, const std::string&);
     
 private://data
-    vector<Entry> getList(const string&);
-    vector<Entry> list[26];
+    std::vector<Entry> getList(const std::string&);
+    std::vector<Entry> list[26];
 };
 
 #endif // DICTIONARY_H

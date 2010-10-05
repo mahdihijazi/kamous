@@ -5,6 +5,7 @@
 
 using std::cout;
 using std::endl;
+using std::string;
 
 Entry::Entry()
 {

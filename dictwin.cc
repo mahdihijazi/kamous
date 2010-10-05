@@ -11,7 +11,6 @@ DictWin::DictWin(QWidget *parent) :
     ui(new Ui::DictWin)
 {
     ui->setupUi(this);
-    ui->wordTxt->setFocus();
 }
 
 DictWin::~DictWin()
