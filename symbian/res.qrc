@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/">
+        <file>data/A</file>
+        <file>data/B</file>
+        <file>data/C</file>
+        <file>data/D</file>
+        <file>data/E</file>
+        <file>data/F</file>
+        <file>data/G</file>
+        <file>data/H</file>
+        <file>data/I</file>
+        <file>data/J</file>
+        <file>data/K</file>
+        <file>data/L</file>
+        <file>data/M</file>
+        <file>data/N</file>
+        <file>data/O</file>
+        <file>data/P</file>
+        <file>data/Q</file>
+        <file>data/R</file>
+        <file>data/S</file>
+        <file>data/T</file>
+        <file>data/U</file>
+        <file>data/V</file>
+        <file>data/W</file>
+        <file>data/X</file>
+        <file>data/Y</file>
+        <file>data/Z</file>
+    </qresource>
+</RCC>
