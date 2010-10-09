@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'dictwin.ui'
 **
-** Created: Tue 5. Oct 22:07:15 2010
+** Created: Sat 9. Oct 23:34:47 2010
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
