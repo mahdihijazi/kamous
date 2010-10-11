@@ -4,8 +4,10 @@
 #include <QTextStream>
 #include <QDebug>
 #include <QStringList>
+#include <QDir>
 
 QString getFileName(const char);
+
 int filesCounter = 1;
 int MAXIMUM_WORDS_IN_BLOCK  = 300;
 int wordsCounter = 0;
@@ -14,10 +16,19 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    QDir dir(QCoreApplication::applicationDirPath());
+
+    #ifdef Q_OS_WIN
+        QString dirName = dir.dirName().toLower();
+        if(dirName == "debug" || dirName == "release")
+            dir.cdUp();
+    #endif
+
+
     QFile* outFile = NULL;
     QTextStream* out;
 
-    QString baseLocation =  "d://out/";
+    QString baseLocation =  dir.absolutePath() + "/out/";
 
     QFile keysFile(baseLocation + "keys.txt");
     if (!keysFile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -78,6 +89,9 @@ int main(int argc, char *argv[])
         outFile->close();
 
     keysFile.close();
+
+    delete outFile;
+    delete out;
 
     return a.exec();
 }
