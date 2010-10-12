@@ -38,13 +38,14 @@ int main(int argc, char *argv[])
 
     qDebug() << "Start";
 
+    QString line;
     for (char i='A'; i<='Z'; i++)
     {
         QString fileName = getFileName(i);
 
         qDebug() << "Read File: " << fileName;
         QFile file(fileName);
-        QString line;
+
         if ( file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
             // file opened successfully
             QTextStream t( &file );        // use a text stream
@@ -67,6 +68,7 @@ int main(int argc, char *argv[])
                             return 0;
 
                         out = new QTextStream(outFile);
+                        out->setCodec( "UTF-8" );
                         QStringList key = line.split( "=" );
                         QString k = key[0];
                         tsKeys << k.trimmed() << "\n";
@@ -87,6 +89,10 @@ int main(int argc, char *argv[])
 
     if( outFile != NULL && outFile->isOpen() )
         outFile->close();
+
+    QStringList key = line.split( "=" );
+    QString k = key[0];
+    tsKeys << k.trimmed() << "\n";
 
     keysFile.close();
 
