@@ -6,44 +6,58 @@
 #include "dictionary.h"
 #include "util.h"
 
-Dictionary::Dictionary()
+Dictionary::Dictionary() : keys()
 {    
-//    for (char i='A'; i<='Z'; i++)
-//    {
-//        QString fileName = getFileName(i);
-//        int letter = i -'A';
-	
-//        list[letter].reserve(100);
-//        QFile file(fileName);
-//        QString line;
-//        if ( file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
-//            // file opened successfully
-//            QTextStream t( &file );        // use a text stream
-//            // until end of file...
-//            while ( !t.atEnd() ) {
+    loadKeysFile();
 
-//                line = QString::fromUtf8(t.readLine().toLocal8Bit()).trimmed();         // line of text excluding '\n'
-//                if(!line.isEmpty()) {
-//                    Entry e;
-//                    e.fromLine(line);
-//                    list[letter].push_back(e);
-
-//                }
-
-//            }
-//            // Close the file
-//            file.close();
-//        }
-
-//    }
-    
 }
 
-QString Dictionary::getFileName(const char ch)
+void Dictionary::loadKeysFile()
 {
-    QString fileName(":/data/");
-    fileName.append(ch);
-    return fileName;
+    QString kesyFileName = ":/data/keys.txt";
+    QFile file(kesyFileName);
+    QString line;
+    if ( file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
+        QTextStream t( &file );
+        while ( !t.atEnd() ) {
+            line = QString::fromUtf8(t.readLine().toLocal8Bit()).trimmed();
+            if(!line.isEmpty()) {
+                keys.append(line);
+
+            }
+
+        }
+
+    }
+
+    file.close();
+
+}
+
+int Dictionary::findWordBlock(const QString& word)
+{
+    /**
+      Note that actually the blocks are started from index 1 not form Zero.
+    */
+
+    int size = keys.size();
+    for( int i=0;i<size;i++ ) {
+        QString key = keys[i];
+        int found = key.compare(word, Qt::CaseInsensitive);
+        if( found >=1 )
+            return i;       // it is in the previous block
+        else if( found == 0 )
+            return i >= size - 1 ? i : i + 1;       // it is the key of this block, if I am on the last block use the previus block index because I added the last word in the dictionary as a keyword, otherwise use the current block
+
+    }
+
+    return -1;
+
+}
+
+QString Dictionary::getFileName(const int blockNumber)
+{
+    return QString(":/data/" + QString::number(blockNumber) + ".txt");
 
 }
 
@@ -66,10 +80,44 @@ QVector<Entry> Dictionary::getList(const QString &word)
 
 }
 
-QVector<Entry> Dictionary::getListOnDemand(const QString &word)
+QStringList Dictionary::getTranslations(const QString& fileName, const QString& word )
+{
+    QFile file(fileName);
+    QString line;
+    if ( file.open(QIODevice::ReadOnly | QIODevice::Text) ) {
+        // file opened successfully
+        QTextStream t( &file );        // use a text stream
+        // until end of file...
+        while ( !t.atEnd() ) {
+            line = QString::fromUtf8(t.readLine().toLocal8Bit()).trimmed();
+            QStringList keyValPair = line.split("=");
+
+            QString key = keyValPair[0];
+            key = key.trimmed();
+            key = key.toLower();
+            if( word.compare(key, Qt::CaseInsensitive) !=0 )
+                continue;
+
+            QString value = keyValPair[1];
+            value = value.trimmed();
+
+            QStringList translations = value.split("::");
+            return translations;
+
+        }
+
+        throw 200;
+
+    } else {
+        throw 200;
+
+    }
+
+}
+
+QVector<Entry> Dictionary::getListOnDemand(const QString &fileName, const QString &word)
 {
     int firestLetter = word.toUpper().at(0).toAscii();
-    QString fileName = getFileName(firestLetter);
     int letter = firestLetter -'A';
 
     list[letter].reserve(100);
@@ -84,7 +132,7 @@ QVector<Entry> Dictionary::getListOnDemand(const QString &word)
             line = QString::fromUtf8(t.readLine().toLocal8Bit()).trimmed();         // line of text excluding '\n'
             if(!line.isEmpty()) {
                 Entry e;
-                e.fromLine(line);
+                e.fromLine(line, word);
                 list[letter].push_back(e);
 
             }
@@ -114,12 +162,20 @@ int Dictionary::binarySearch(QVector<Entry> &list, int start, int end, const QSt
             return binarySearch(list, mid+1, end, key);
 }
 
-Entry Dictionary::search(QString &word)
+QStringList Dictionary::search(QString &word)
 {
     word = word.trimmed();
     word = word.toLower();
 
-    QVector<Entry> list = getListOnDemand(word);
+    int fileNumber = findWordBlock(word);
+    if( fileNumber < 1 )
+        throw 200;
+
+    QString fileName = getFileName(fileNumber);
+
+    return getTranslations(fileName, word );
+    /*
+    QVector<Entry> list = getListOnDemand(fileName, word);
     int size = list.size();
     int index =  binarySearch(list, 0, size-1, word);
     if (index == -1)
@@ -129,6 +185,6 @@ Entry Dictionary::search(QString &word)
         list.clear();
         return e;
 
-    }
+    }*/
 
 }

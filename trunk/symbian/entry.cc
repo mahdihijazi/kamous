@@ -13,13 +13,16 @@ Entry::Entry()
     current = -1;
 }
 
-void Entry::fromLine(const QString& line)
+void Entry::fromLine(const QString& line, const QString &word)
 {
     QStringList keyValPair = line.split("=");
 
     QString key = keyValPair[0];
     key = key.trimmed();
     key = key.toLower();
+    if( word.compare(key, Qt::CaseInsensitive) !=0 )
+        return;
+
     setWord(key);
 
     QString value = keyValPair[1];
