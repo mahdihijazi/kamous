@@ -7,7 +7,7 @@ class Entry
 {
 public:
     Entry();
-    void fromLine(const QString&);
+    void fromLine(const QString&, const QString&);
     QString getWord();
     int transNumber();
     QString* getTranslations();

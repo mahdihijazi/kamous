@@ -2,7 +2,6 @@
 #include "dictwin.h"
 #include "dictionary.h"
 #include "entry.h"
-#include "util.h"
 
 int main(int argc, char *argv[])
 {
