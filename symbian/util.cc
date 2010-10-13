@@ -1,6 +1,3 @@
-//#include <iostream>
-//#include <cstring>
-//#include <cctype>
 #include <QString>
 #include "util.h"
 
