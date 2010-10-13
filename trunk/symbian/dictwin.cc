@@ -1,9 +1,10 @@
 #include <iostream>
 #include <QMessageBox>
+#include <QStringList>
+#include <QApplication>
 #include "dictwin.h"
 #include "ui_dictwin.h"
 #include "util.h"
-#include <QStringList>
 
 using namespace std;
 
@@ -60,15 +61,8 @@ void DictWin::invokeSearch()
                 ui->listWidget->addItem(translations[i]);
             }
 
-            /*Entry entry = dictionary.search(searchWord);
-            int transNo = entry.transNumber();
-            QString* trans = entry.getTranslations();
-            for (int i=0; i<=transNo; i++)
-            {
-                ui->listWidget->addItem(trans[i]);
-            }*/
-
         } catch(int eType) {
+            QApplication::beep();
 
         }
 

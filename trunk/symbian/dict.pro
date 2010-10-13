@@ -6,10 +6,12 @@ TEMPLATE = app
 SOURCES += main.cc \
     dictwin.cc \
     dictionary.cc \
-    entry.cc
+    entry.cc \
+    util.cc
 HEADERS += dictwin.h \
     dictionary.h \
-    entry.h
+    entry.h \
+    util.h
 FORMS += dictwin.ui
 
 RESOURCES += \
