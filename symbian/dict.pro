@@ -16,3 +16,5 @@ FORMS += dictwin.ui
 
 RESOURCES += \
     res.qrc
+
+TRANSLATIONS    += dict_ar.ts
