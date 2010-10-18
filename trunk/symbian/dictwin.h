@@ -17,6 +17,7 @@ public:
 
 protected:
     void changeEvent(QEvent *e);
+    void addSoftKeys();
 
 private:
     Ui::DictWin *ui;
@@ -28,6 +29,7 @@ private slots:
     void on_wordTxt_returnPressed();
     void on_pushButton_clicked();
     void on_actionExit_triggered();
+    void nextClicked();
 };
 
 #endif // DICTWIN_H

@@ -1,7 +1,8 @@
-#include <iostream>
 #include <QMessageBox>
 #include <QStringList>
 #include <QApplication>
+#include <QAction>
+
 #include "dictwin.h"
 #include "ui_dictwin.h"
 #include "util.h"
@@ -14,6 +15,9 @@ DictWin::DictWin(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->wordTxt->setFocus();
+
+    addSoftKeys();
+
 }
 
 DictWin::~DictWin()
@@ -33,6 +37,24 @@ void DictWin::changeEvent(QEvent *e)
     }
 }
 
+void DictWin::addSoftKeys() {
+    #ifdef Q_OS_SYMBIAN
+    this->menuBar()->addAction(tr("About"), this, SLOT(on_action_triggered()));
+
+    // remove desktop menus
+    this->menuBar()->removeAction(ui->menu->menuAction());
+    this->menuBar()->removeAction(ui->menuHello->menuAction());
+
+    this->menuBar()->removeAction(ui->action);
+    this->menuBar()->removeAction(ui->actionExit);
+    #endif
+
+}
+
+void DictWin::nextClicked()
+{
+//Your code here
+}
 void DictWin::on_actionExit_triggered()
 {
     exit(0);
